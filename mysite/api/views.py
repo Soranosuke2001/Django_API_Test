@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import BlogPost
 from .serializers import BlogPostSerializers
@@ -10,5 +10,11 @@ from .serializers import BlogPostSerializers
 class BlogPostListCreate(ListCreateAPIView):
   queryset = BlogPost.objects.all()
   serializer_class = BlogPostSerializers
+
+  
+class BlogPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+  queryset = BlogPost.objects.all()
+  serializer_class = BlogPostSerializers
+  lookup_field = "pk"
 
   
