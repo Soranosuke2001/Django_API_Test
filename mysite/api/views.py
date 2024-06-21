@@ -35,4 +35,16 @@ class BlogPostList(APIView):
     serializer = BlogPostSerializers(blog_posts, many=True)
 
     return Response(serializer.data, status=status.HTTP_200_OK)
+  
+  def post(self, request, format=None):
+    serializer = BlogPostSerializers(data=request.data)
 
+    if serializer.is_valid():
+      # Saves to Database
+      serializer.save()
+
+      return Response(status=status.HTTP_201_CREATED)
+    
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+  
